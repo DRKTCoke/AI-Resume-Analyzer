@@ -1,12 +1,12 @@
 # AI Resume Analyzer
 
-二阶段可交付版本（MVP+）：
+MVP：
 - Python FastAPI 后端（可部署为阿里云函数计算）
 - PDF 简历上传与解析
-- OCR 扫描件识别（低质量文本自动触发）
+- OCR 扫描件识别（低质量文本自动触发）（注意：OCR需要tesseract依赖，若未安装依赖，建议将配置改为ENABLE_OCR=false）
 - LLM 结构化抽取（OpenAI / 百炼二选一）
 - 稳定匹配评分（关键词 + 经验 + 学历 + 意向）
-- Redis 缓存（可选）
+- Redis 缓存（可选，填入相应URL，不填直接走本地内存缓存）
 - 纯静态前端（可部署到 GitHub Pages）
 
 ## 目录
