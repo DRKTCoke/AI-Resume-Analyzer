@@ -1,0 +1,33 @@
+edition: 3.0.0
+name: ai-resume-analyzer
+
+access: default
+
+vars:
+  region: cn-hangzhou
+  service:
+    name: ai-resume-analyzer-svc
+
+resources:
+  backend:
+    component: fc3
+    props:
+      region: ${vars.region}
+      service: ${vars.service}
+      functionName: api
+      runtime: python3.10
+      cpu: 0.35
+      memorySize: 512
+      timeout: 60
+      diskSize: 512
+      code: ./
+      handler: app.main.app
+      internetAccess: true
+      triggers:
+        - triggerName: httpTrigger
+          triggerType: http
+          qualifier: LATEST
+          triggerConfig:
+            authType: anonymous
+            disableURLInternet: false
+            methods: [GET, POST, PUT, DELETE, OPTIONS]
