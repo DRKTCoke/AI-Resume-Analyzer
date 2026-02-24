@@ -1,12 +1,12 @@
 # AI Resume Analyzer
 
-一个可在 24 小时内交付的最小可用版本（MVP）：
+MVP：
 - Python FastAPI 后端（可部署为阿里云函数计算）
 - PDF 简历上传与解析
 - 关键字段提取（姓名/电话/邮箱/地址/技能/经历）
 - 岗位 JD 关键词提取与匹配评分
-- Redis 缓存（可选）
-- 纯静态前端（可部署到 GitHub Pages）
+- Redis 缓存（可选其他缓存？）
+- 纯静态前端（已部署到 GitHub Pages）
 
 ## 目录
 
