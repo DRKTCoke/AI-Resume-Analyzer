@@ -39,9 +39,6 @@ apt-get update && apt-get install -y tesseract-ocr tesseract-ocr-chi-sim
 - `LLM_MODEL=qwen-plus`
 - `LLM_API_KEY=...`
 
-## 4) 前端部署到 GitHub Pages
+## 4) 前端已部署到 GitHub Pages
 
-1. 将 `frontend/` 内容放到仓库根目录或 `docs/` 目录。
-2. GitHub -> Settings -> Pages -> 选择分支与目录。
-3. 发布后得到可访问页面 URL。
-4. 页面里填写后端 URL 并测试上传/匹配。
+页面里填写后端 URL 并测试上传/匹配（后端需本地或云端部署，且公网可达）
