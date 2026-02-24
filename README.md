@@ -7,7 +7,7 @@ MVP：
 - LLM 结构化抽取（默认为OpenAI，可选百炼，需要填入真实LLM_API_KEY）
 - 稳定匹配评分（关键词 + 经验 + 学历 + 意向）
 - Redis 缓存（可选，填入相应URL，不填直接走本地内存缓存）
-- 纯静态前端（可部署到 GitHub Pages）
+- 纯静态前端（已部署到 GitHub Pages：https://drktcoke.github.io/AI-Resume-Analyzer/）
 
 ## 目录
 
