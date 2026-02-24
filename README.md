@@ -22,7 +22,7 @@ cd backend
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env
+cp .env.openai.example .env
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -41,7 +41,9 @@ python -m http.server 8080
 - 供应商：`LLM_PROVIDER=openai` 或 `LLM_PROVIDER=bailian`
 - OCR 开关：`ENABLE_OCR=true`
 
-详见 `backend/.env.example` 与 `docs/deploy.md`。
+默认已切到 OpenAI 配置（`backend/.env.example` / `backend/.env.openai.example`），你只需要把 `LLM_API_KEY` 替换成真实 key。
+
+详见 `docs/deploy.md`。
 
 ## API 概览
 
