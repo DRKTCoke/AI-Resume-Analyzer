@@ -6,7 +6,9 @@ from app.config import settings
 from app.schemas import JobMatchRequest, ResumeParseResult
 from app.services.cache import CacheClient
 from app.services.extractor import ResumeExtractor
+from app.services.llm_extractor import LLMExtractor
 from app.services.matcher import JobMatcher
+from app.services.ocr import OCRParser
 from app.services.pdf_parser import PDFParser
 from app.services.text_processor import TextProcessor
 
@@ -26,8 +28,27 @@ async def upload_resume(file: UploadFile = File(...)) -> ResumeParseResult:
 
     content = await file.read()
     raw = PDFParser.parse(content)
+
+    if settings.enable_ocr and TextProcessor.low_text_quality(raw):
+        ocr_text = OCRParser.parse(content, dpi=settings.ocr_dpi, max_pages=settings.ocr_max_pages)
+        if len(ocr_text) > len(raw):
+            raw = ocr_text
+
     cleaned = TextProcessor.clean(raw)
+
+    extraction_method = "rule"
     extracted = ResumeExtractor.extract(cleaned)
+
+    if settings.enable_llm and settings.llm_api_key:
+        llm_result = LLMExtractor.extract(
+            text=cleaned,
+            provider=settings.llm_provider,
+            api_key=settings.llm_api_key,
+            base_url=settings.llm_base_url,
+            model=settings.llm_model,
+        )
+        extracted = llm_result.extracted
+        extraction_method = f"llm:{settings.llm_provider}"
 
     resume_id = str(uuid.uuid4())
     result = ResumeParseResult(
@@ -36,6 +57,7 @@ async def upload_resume(file: UploadFile = File(...)) -> ResumeParseResult:
         raw_text=raw,
         cleaned_text=cleaned,
         extracted=extracted,
+        extraction_method=extraction_method,
     )
 
     cache.set(f"resume:{resume_id}", result.model_dump())

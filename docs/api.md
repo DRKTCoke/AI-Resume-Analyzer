@@ -22,9 +22,10 @@
     "address": "上海",
     "years_of_experience": "5年工作经验",
     "education": "本科",
-    "intent": null,
+    "intent": "后端开发",
     "skills": ["python", "redis"]
-  }
+  },
+  "extraction_method": "llm:openai"
 }
 ```
 
@@ -53,7 +54,9 @@
     "jd_keywords": ["python", "redis"],
     "matched_keywords": ["python"],
     "keyword_match_rate": 0.5,
-    "experience_score": 1.0
+    "experience_score": 1.0,
+    "education_score": 1.0,
+    "intent_score": 0.7
   }
 }
 ```

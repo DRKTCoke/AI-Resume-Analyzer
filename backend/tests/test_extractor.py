@@ -1,4 +1,5 @@
 from app.services.extractor import ResumeExtractor
+from app.services.text_processor import TextProcessor
 
 
 def test_extract_basic_fields():
@@ -9,3 +10,9 @@ def test_extract_basic_fields():
     assert data.email == "test@example.com"
     assert data.education == "本科"
     assert data.address == "上海"
+
+
+def test_low_text_quality_for_scanned_pdf():
+    assert TextProcessor.low_text_quality(" ")
+    assert TextProcessor.low_text_quality("----++++***")
+    assert not TextProcessor.low_text_quality("这是一个正常的简历文本，包含多段中文内容和技能描述。")

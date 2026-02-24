@@ -18,6 +18,7 @@ class ResumeParseResult(BaseModel):
     raw_text: str
     cleaned_text: str
     extracted: ExtractedInfo
+    extraction_method: str = "rule"
 
 
 class JobMatchRequest(BaseModel):
@@ -30,9 +31,16 @@ class MatchBreakdown(BaseModel):
     matched_keywords: list[str]
     keyword_match_rate: float
     experience_score: float
+    education_score: float
+    intent_score: float
 
 
 class JobMatchResponse(BaseModel):
     resume_id: str
     total_score: float
     breakdown: MatchBreakdown
+
+
+class LLMExtractionResult(BaseModel):
+    extracted: ExtractedInfo
+    raw_response: str

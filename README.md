@@ -1,12 +1,13 @@
 # AI Resume Analyzer
 
-MVP：
+二阶段可交付版本（MVP+）：
 - Python FastAPI 后端（可部署为阿里云函数计算）
 - PDF 简历上传与解析
-- 关键字段提取（姓名/电话/邮箱/地址/技能/经历）
-- 岗位 JD 关键词提取与匹配评分
-- Redis 缓存（可选其他缓存？）
-- 纯静态前端（已部署到 GitHub Pages）
+- OCR 扫描件识别（低质量文本自动触发）
+- LLM 结构化抽取（OpenAI / 百炼二选一）
+- 稳定匹配评分（关键词 + 经验 + 学历 + 意向）
+- Redis 缓存（可选）
+- 纯静态前端（可部署到 GitHub Pages）
 
 ## 目录
 
@@ -21,7 +22,7 @@ cd backend
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env
+cp .env.openai.example .env
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -34,6 +35,16 @@ python -m http.server 8080
 
 打开 `http://localhost:8080`，将 API Base URL 设为 `http://localhost:8000`。
 
+## 二阶段关键配置
+
+- 开启 LLM 抽取：`ENABLE_LLM=true`
+- 供应商：`LLM_PROVIDER=openai` 或 `LLM_PROVIDER=bailian`
+- OCR 开关：`ENABLE_OCR=true`
+
+默认已切到 OpenAI 配置（`backend/.env.example` / `backend/.env.openai.example`），你只需要把 `LLM_API_KEY` 替换成真实 key。
+
+详见 `docs/deploy.md`。
+
 ## API 概览
 
 - `POST /api/resume/upload`：上传 PDF 并解析
@@ -43,11 +54,7 @@ python -m http.server 8080
 
 详见 `docs/api.md`。
 
-## 阿里云 Serverless 部署
-
-已提供 `backend/s.yaml` 模板，可按 `docs/deploy.md` 一步步部署。
-
 ## 说明
 
-- 这个版本默认使用**规则+关键词**实现可交付能力。
-- 如需接入大模型（例如阿里云百炼 / OpenAI），只需在 `.env` 打开开关并配置 key。
+- 默认规则抽取可直接跑通。
+- 开启 LLM 后会返回 `extraction_method=llm:<provider>`。
