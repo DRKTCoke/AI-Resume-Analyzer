@@ -85,6 +85,23 @@
     "experience_score": 1.0,
     "education_score": 1.0,
     "intent_score": 0.7
+  },
+  "analysis": {
+    "match_level": "高匹配",
+    "summary": "高匹配，总分 0.82。已命中 2/3 个岗位关键词。",
+    "strengths": ["已命中岗位关键词：python、redis"],
+    "risks": ["JD 中仍有未体现的关键词：docker"],
+    "suggestions": ["补充与 docker 相关的项目经历、职责或成果。"],
+    "interview_focus": ["请展开说明一个使用 python 解决实际问题的项目。"]
   }
 }
 ```
+
+`analysis` 字段用于展示可解释的岗位匹配报告：
+
+- `match_level`：高匹配 / 中匹配 / 低匹配。
+- `summary`：综合评分摘要。
+- `strengths`：候选人优势。
+- `risks`：风险点或待核验缺口。
+- `suggestions`：简历优化建议。
+- `interview_focus`：推荐面试关注点。

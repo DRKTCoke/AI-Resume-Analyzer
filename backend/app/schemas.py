@@ -43,10 +43,20 @@ class MatchBreakdown(BaseModel):
     intent_score: float
 
 
+class MatchAnalysis(BaseModel):
+    match_level: str = "低匹配"
+    summary: str = "匹配分析暂不可用"
+    strengths: list[str] = Field(default_factory=list)
+    risks: list[str] = Field(default_factory=list)
+    suggestions: list[str] = Field(default_factory=list)
+    interview_focus: list[str] = Field(default_factory=list)
+
+
 class JobMatchResponse(BaseModel):
     resume_id: str
     total_score: float
     breakdown: MatchBreakdown
+    analysis: MatchAnalysis = Field(default_factory=MatchAnalysis)
 
 
 class LLMExtractionResult(BaseModel):
