@@ -13,7 +13,7 @@ class TextProcessor:
     @staticmethod
     def low_text_quality(text: str) -> bool:
         clean = text.strip()
-        if len(clean) < 80:
+        if len(clean) < 10:
             return True
         alnum_count = len(re.findall(r"[A-Za-z0-9\u4e00-\u9fff]", clean))
         return alnum_count / max(1, len(clean)) < 0.35

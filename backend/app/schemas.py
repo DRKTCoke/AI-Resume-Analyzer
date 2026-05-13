@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class ExtractedInfo(BaseModel):
@@ -22,8 +22,16 @@ class ResumeParseResult(BaseModel):
 
 
 class JobMatchRequest(BaseModel):
-    resume_id: str
-    jd_text: str
+    resume_id: str = Field(..., min_length=1, max_length=128)
+    jd_text: str = Field(..., min_length=1, max_length=20000)
+
+    @field_validator("resume_id", "jd_text")
+    @classmethod
+    def must_not_be_blank(cls, value: str) -> str:
+        value = value.strip()
+        if not value:
+            raise ValueError("must not be blank")
+        return value
 
 
 class MatchBreakdown(BaseModel):

@@ -15,6 +15,10 @@ class Settings(BaseSettings):
     enable_ocr: bool = True
     ocr_dpi: int = 220
     ocr_max_pages: int = 3
+    max_upload_bytes: int = 10 * 1024 * 1024
+    idempotency_ttl_seconds: int = 24 * 60 * 60
+    idempotency_key_max_length: int = 128
+    cors_allow_origins: str = "*"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
